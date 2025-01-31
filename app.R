@@ -54,7 +54,16 @@ scale_fill_cvi_d = function(name) {
 # 
 # 
 
-full_IDOC <- read_rds("fullIDOC.rds")
+full_IDOC <- read_csv("June 2024.csv")
+
+
+full_IDOC$`Current Admission Date` <- mdy(full_IDOC$`Current Admission Date`)
+full_IDOC$`Projected Mandatory Supervised Release (MSR) Date` <- mdy(full_IDOC$`Projected Mandatory Supervised Release (MSR) Date`)
+full_IDOC$`Projected Discharge Date` <- mdy(full_IDOC$`Projected Discharge Date`)
+full_IDOC$`Custody Date` <- mdy(full_IDOC$`Custody Date`)
+full_IDOC$`Sentence Date` <- mdy(full_IDOC$`Sentence Date`)
+
+
 
 full_IDOC <- full_IDOC %>% mutate("Age Range" = case_when(age < 18 ~ "<18",
                                                           age >18 & age<26 ~ "18 to 25",
@@ -122,7 +131,7 @@ ui <- navbarPage(
 tabPanel("Welcome",
          h4("Welcome to the Restore Justice Dashboard"),
          h5(" Use the data explorer to discover distributions about the IDOC population, the data select tool to select variables to get a count of people that adhere to each category, or the incidents tool to look at within institution incidents over time."),
-         h5("Full information about this app and the documentation supporting it can be found at __.github.com.")
+         h5("Full information about this app and the documentation supporting it can be found at https://github.com/amturnr/RestoreJustice.")
          ), 
 
 
@@ -256,7 +265,7 @@ tabPanel("Incidents Tool",
 #downloadButton("downloadData", "Download"),
 tags$img(src="RJLogo.png",align="right"),
 tags$img(src="MTLogo.png",align="bottomright"),
-h6("For questions or issues with the app contact amturnr@gmail.com or see our github at https://github.com/MetricsTogether/RestoreJustice"),
+h6("For questions or issues with the app contact amturnr@gmail.com or see our github at https://github.com/amturnr/RestoreJustice"),
 
 tags$style(HTML(".navbar-header { width:100% }
                    .navbar-brand { width: 100%; text-align: center }")) # center text
